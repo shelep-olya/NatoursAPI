@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const app = require('./app');
 
 dotenv.config({ path: './config.env' });
+
+const app = require('./app');
 
 const DB = process.env.MONGO_DB_URI.replace('<PASSWORD>', process.env.PASSWORD);
 mongoose.connect(DB).then(() => {
