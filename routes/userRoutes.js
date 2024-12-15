@@ -4,18 +4,19 @@ const authController = require('../controllers/authController');
 
 const router = express.Router();
 
-router.route('/').get(userController.getAllUsers);
+router.use(authController.protect);
 
-router.patch('/updateMe', authController.protect, userController.updateMe);
-router.delete('/deleteMe', authController.protect, userController.deleteMe);
+router.get('/me', userController.getMe, userController.getUserById);
+router.patch('/updateMe', userController.updateMe);
+router.delete('/deleteMe', userController.deleteMe);
+
+router.use(authController.restrictTo('admin'));
+
+router.route('/').get(userController.getAllUsers);
 
 router
   .route('/:id')
-  .delete(
-    authController.protect,
-    authController.restrictTo('admin'),
-    userController.deleteUser
-  )
+  .delete(userController.deleteUser)
   .patch(userController.updateUser)
   .get(userController.getUserById);
 
