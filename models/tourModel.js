@@ -57,7 +57,7 @@ const tourSchema = new mongoose.Schema(
       trim: true,
       required: [true, 'Tour must have a summary']
     },
-    desciption: {
+    description: {
       type: String,
       trim: true
     },
