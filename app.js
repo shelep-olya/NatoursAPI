@@ -5,7 +5,6 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
-const cors = require('cors');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const AppError = require('./utils/appError');
@@ -17,8 +16,6 @@ const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
 
 const app = express();
-
-app.use(cors());
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
