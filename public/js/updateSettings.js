@@ -1,13 +1,17 @@
 /* eslint-disable */
 
-const updateData = async (name, email) => {
+const updateData = async (name, email, photo) => {
   try {
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    if (photo) {
+      formData.append('photo', photo);
+    }
+
     const res = await fetch('http://localhost:3000/api/v1/users/updateMe', {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name, email })
+      body: formData
     });
 
     if (!res.ok) {
@@ -33,7 +37,8 @@ if (userDataForm) {
     e.preventDefault();
     const email = document.getElementById('email').value;
     const name = document.getElementById('name').value;
+    const photo = document.getElementById('photo').files[0];
 
-    updateData(name, email);
+    updateData(name, email, photo);
   });
 }
